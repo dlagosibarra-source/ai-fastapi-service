@@ -1,5 +1,6 @@
 import asyncio
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, Field
 
 # Initialize FastAPI application with metadata
@@ -17,6 +18,11 @@ class AnalyzeRequest(BaseModel):
 class AnalyzeResponse(BaseModel):
     sentiment: str = Field(..., description="The sentiment of the text")
     keywords: list[str] = Field(..., description="Extracted keywords from the text")
+
+@app.get("/")
+async def root():
+    # Redirige automáticamente a la documentación
+    return RedirectResponse(url="/docs")
 
 @app.post("/analyze", response_model=AnalyzeResponse, summary="Analyze text")
 async def analyze_text(request: AnalyzeRequest) -> AnalyzeResponse:
