@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Mi IA Tester</title>
+    <style>
+        body { font-family: sans-serif; padding: 50px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        #resultado { margin-top: 20px; font-weight: bold; color: #28a745; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h3>Analizador de Sentimiento</h3>
+        <input type="text" id="userInput" placeholder="Escribe algo aquí...">
+        <button onclick="llamarALaIA()">Analizar ahora</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        async function llamarALaIA() {
+            const texto = document.getElementById('userInput').value;
+            const resDiv = document.getElementById('resultado');
+            resDiv.innerText = "Pensando...";
+
+            try {
+                const response = await fetch('http://127.0.0.1:8080/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: texto })
+                });
+
+                const data = await response.json();
+                resDiv.innerText = "Resultado de la IA: " + data.sentiment;
+            } catch (error) {
+                resDiv.innerText = "Error: ¿Encendiste el servidor?";
+            }
+        }
+    </script>
+</body>
+</html>
