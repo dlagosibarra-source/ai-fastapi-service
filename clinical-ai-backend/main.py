@@ -31,7 +31,13 @@ model = genai.GenerativeModel(
     generation_config={"response_mime_type": "application/json"}
 )
 
-# 4. Configurar el Servidor FastAPI
+# 4. Configurar el Servidor FastAPI y Base de Datos
+from database import engine, Base
+from models import MedicalRecord
+
+# Crear las tablas en la base de datos si no existen
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(title="Clinical AI Agent", description="API de análisis médico multimodal")
 
 # --- CONFIGURACIÓN CORS BLINDADA ---
