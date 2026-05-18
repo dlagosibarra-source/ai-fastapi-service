@@ -1,0 +1,15 @@
+# --- BACKEND ---
+clinical-ai-backend/.venv/
+clinical-ai-backend/pycache/
+clinical-ai-backend/.env
+clinical-ai-backend/*.db
+clinical-ai-backend/.pytest_cache/
+
+--- FRONTEND ---
+clinical-ai-frontend/node_modules/
+clinical-ai-frontend/dist/
+clinical-ai-frontend/.env
+clinical-ai-frontend/.env.local
+
+--- SISTEMA ---
+.DS_Store
